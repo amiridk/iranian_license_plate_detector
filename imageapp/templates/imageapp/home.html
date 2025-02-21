@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Upload</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      form {
+        margin-bottom: 20px;
+      }
+      input[type="file"] {
+        margin-bottom: 10px;
+      }
+      .image-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .image-item {
+        position: relative;
+        margin: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        width: calc(33% - 20px);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+      .image-item img {
+        width: 100%;
+        height: auto;
+      }
+      .delete-button {
+        position: absolute;
+        bottom: -5px;
+        right: 5px;
+        background: red;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .delete-button:hover {
+        background: darkred;
+      }
+      .button-class {
+        padding: 10px 15px;
+        max-width: 150px;
+      }
+      .form-main-class {
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Upload and Display Images</h1>
+      <form method="POST" enctype="multipart/form-data" class="form-main-class">
+        {% csrf_token %} {{ form.as_p }}
+        <button class="button-class" type="submit">Upload Image</button>
+      </form>
+
+      <h2>Uploaded Images</h2>
+      <div class="image-list">
+        {% for image in images %}
+        <div class="image-item">
+          <img src="{{ image.image.url }}" alt="Image {{ image.id }}" />
+          <form
+            action="{% url 'delete_image' image.id %}"
+            method="POST"
+            style="display: inline"
+          >
+            {% csrf_token %}
+            <button type="submit" class="delete-button">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </form>
+        </div>
+        {% empty %}
+        <p>No images uploaded yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
