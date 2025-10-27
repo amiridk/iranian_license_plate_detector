@@ -3,8 +3,7 @@ This code identifies/detect and reads Iranian license plates Using a convolution
 Despite hardware limitations for training it has a good coef for detecting .
 I combined deeplearning and machinelearnin also amount of Image processing to detect and read.
 all the app based on django.
-btw must difficult part is i forgot to add requirements.txt so you have install them by fixing errors about packages :)))))
-after that its ease as command this    python.exe manage.py runserver ///for windows
+
 
 ااین پروژه مربوط به دیپ لرمیمگ و ماشین لرنینک دانشگاهی من است .
 ایک پروژه جنگویی است که تحت وب با استفاده از YOLOv8 پلاک های ایرانی رو تشخیص میده و متنشو میخونه.
